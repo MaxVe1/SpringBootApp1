@@ -4,7 +4,11 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
+
 import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParamsTests {
     @ParameterizedTest
@@ -20,8 +24,6 @@ public class ParamsTests {
                   //,Arguments.of(13)
               );
     }
-
-
         @ParameterizedTest
         @MethodSource
         void testWithMethodSource(String input, int expectedLength) {
@@ -35,5 +37,14 @@ public class ParamsTests {
                     //Arguments.of("JUnit", 6)
             );
         }
+    public static boolean isOdd(int number) {
+        return number % 2 != 0;
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
+    void isOdd_ShouldReturnTrueForOddNumbers(int number) {
+        assertTrue(isOdd(number));
+    }
 }
 
