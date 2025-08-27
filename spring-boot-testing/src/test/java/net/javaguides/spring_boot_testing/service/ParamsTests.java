@@ -20,4 +20,20 @@ public class ParamsTests {
                   //,Arguments.of(13)
               );
     }
+
+
+        @ParameterizedTest
+        @MethodSource
+        void testWithMethodSource(String input, int expectedLength) {
+            Assertions.assertThat(expectedLength).isEqualTo( input.length());
+        }
+
+        private static Stream<Arguments>testWithMethodSource() {
+            return Stream.of(
+                    Arguments.of("hello", 5),
+                    Arguments.of("world", 5)//,
+                    //Arguments.of("JUnit", 6)
+            );
+        }
 }
+
