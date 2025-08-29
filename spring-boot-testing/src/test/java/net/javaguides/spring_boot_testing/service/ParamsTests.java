@@ -1,16 +1,30 @@
 package net.javaguides.spring_boot_testing.service;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
-
 import java.util.stream.Stream;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParamsTests {
+
+    public String reversString(String originalStr){
+        String reversedStr = "";
+        for (int i = 0; i < originalStr.length(); i++) {
+            reversedStr = originalStr.charAt(i) + reversedStr;
+        }
+        return reversedStr;
+    }
+    public boolean isPalindrome(String s) {
+        return s == null ? false : reversString(s).equals(s);
+    }
+
+    @ParameterizedTest(name = "{index} - {0} is a palindrome")
+    @ValueSource(strings = { "12321", "pop" })
+    void testPalindrome(String word) {
+        assertTrue(isPalindrome(word));
+    }
     @ParameterizedTest
     @MethodSource
     void checkAge(int age) {
