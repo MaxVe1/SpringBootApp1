@@ -2,9 +2,12 @@ package net.javaguides.spring_boot_testing.service;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import java.util.stream.Stream;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParamsTests {
@@ -59,6 +62,13 @@ public class ParamsTests {
     @ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
     void isOdd_ShouldReturnTrueForOddNumbers(int number) {
         assertTrue(isOdd(number));
+    }
+
+    @ParameterizedTest
+    @CsvSource({"test,TEST", "tEst,TEST", "Java,JAVA"})
+    void toUpperCase_ShouldGenerateTheExpectedUppercaseValue(String input, String expected) {
+        String actualValue = input.toUpperCase();
+        assertEquals(expected, actualValue);
     }
 }
 
